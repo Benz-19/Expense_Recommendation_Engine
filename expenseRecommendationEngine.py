@@ -9,4 +9,11 @@ categories = {
     "unavailable" : defaultdict(list)
 }
 
-#provide the 
+#provide the period
+print("Provide the time frame of your current expense (as):\n" \
+"[0] = daily" \
+"[1] = weekly" \
+"[2] = monthly")
+
+while True:
+    period = input("period = ")

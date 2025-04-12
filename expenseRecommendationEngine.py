@@ -23,17 +23,6 @@ def validate_index_input(name):
             except ValueError:
                 print("Enter only the index numbers specified... (e.g 0,1,2 etc)")
     return result
-
-
-#provide the period
-print("Provide the time frame of your current expense (as):\n" \
-"[0] = daily\n" \
-"[1] = weekly\n" \
-"[2] = monthly\n")
-
-period = validate_index_input("period")
-
-
         
 #displays the available category to the user
 def display_category():
@@ -71,10 +60,26 @@ def get_expense():
     if continueProcess:
         get_expense()
         
+def process_sum_message(name):
+    for items, value in categories.items():
+        if items == name:
+            print(f"Total of {name.capitalize()} sum = ", str(sum(value.values())))
 
-
+def display_total_expense():
+    #for food
+    process_sum_message("food")
+    #for transportation
+    process_sum_message("transport")
+    #for books
+    process_sum_message("books")
+    #for bills
+    process_sum_message("bills")
+    #for entertainment
+    process_sum_message("entertainment")
+    
 
 get_expense()
+display_total_expense()
 
-print(categories["food"])
-print(categories["transport"])
+# print(categories["food"])
+# print(categories["transport"])

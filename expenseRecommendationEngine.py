@@ -5,7 +5,7 @@ categories = {
     "transport" : defaultdict(list),
     "books" : defaultdict(list),
     "bills" : defaultdict(list),
-    "entertaiment" : defaultdict(list),
+    "entertainment" : defaultdict(list),
     "unavailable" : defaultdict(list)
 }
 
@@ -39,6 +39,9 @@ def get_expense():
     display_category() #display the available options
     selectedCategory = validate_index_input("Category")
     endRequest = validate_index_input("Enter [1] to proceed: ")
+    if endRequest not in [0,1]:
+        print("Invalid input value, only [0] and [1] are allowed...")
+        
     while endRequest != 0 and endRequest == 1:
         amount = validate_index_input("Enter the expense amount: ")
         match selectedCategory:
@@ -51,7 +54,7 @@ def get_expense():
             case 3:
                 categories["bills"]["bills"].append(amount)
             case 4:
-                categories["entertaiment"]["entertaiment"].append(amount)
+                categories["entertainment"]["entertainment"].append(amount)
             case _:
                 print("This category doesn't exists!!!")
         
@@ -63,7 +66,11 @@ def get_expense():
 def process_sum_message(name):
     for items, value in categories.items():
         if items == name:
-            print(f"Total of {name.capitalize()} sum = ", str(sum(value.values())))
+            if name in value:
+                total = sum(value[name])
+                print(f"Total of {name.capitalize()} sum = ", total)
+            else:
+                print(f"No values were found for {name.capitalize()}...")
 
 def display_total_expense():
     #for food
@@ -81,5 +88,3 @@ def display_total_expense():
 get_expense()
 display_total_expense()
 
-# print(categories["food"])
-# print(categories["transport"])

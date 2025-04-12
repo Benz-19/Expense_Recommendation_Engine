@@ -46,8 +46,7 @@ def display_category():
         index = index + 1
 
 #obtains the daily expenses (if selected)
-def get_daily_expense():
-    expenseDict = {}
+def get_expense():
     display_category() #display the available options
     selectedCategory = validate_index_input("Category")
     endRequest = validate_index_input("Enter [1] to proceed: ")
@@ -70,12 +69,12 @@ def get_daily_expense():
         endRequest = validate_index_input("Enter [0] to terminate and [1] to proceed: ")
     continueProcess = validate_index_input("Would you like to continue the process? [0] for no, [1] for yes")
     if continueProcess:
-        get_daily_expense()
+        get_expense()
         
 
 
 
-get_daily_expense()
+get_expense()
 
 print(categories["food"])
 print(categories["transport"])

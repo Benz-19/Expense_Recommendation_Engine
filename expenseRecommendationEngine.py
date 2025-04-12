@@ -10,15 +10,19 @@ categories = {
 }
 
 #validates the index selected by the user
-def validate_index_input(name, input):
+def validate_index_input(name):
     while True:
-        print(name, "= ")
+        result = input(f"{name} = ")
         try:
-            input = int(input)
+            result = int(result)
             break
         except ValueError:
-            print("Enter only the index numbers specified... (e.g 0,1,2 etc)")
-    return input
+            try:
+                result = float(result)
+                break
+            except ValueError:
+                print("Enter only the index numbers specified... (e.g 0,1,2 etc)")
+    return result
 
 
 #provide the period
@@ -27,8 +31,7 @@ print("Provide the time frame of your current expense (as):\n" \
 "[1] = weekly\n" \
 "[2] = monthly\n")
 
-period = input("period = ")
-period = validate_index_input("period", period)
+period = validate_index_input("period")
 
 
         
@@ -46,9 +49,33 @@ def display_category():
 def get_daily_expense():
     expenseDict = {}
     display_category() #display the available options
-    selectedCategory = input("Your Input: ")
-    selectedCategory = validate_index_input("Category",selectedCategory)
+    selectedCategory = validate_index_input("Category")
+    endRequest = validate_index_input("Enter [1] to proceed: ")
+    while endRequest != 0 and endRequest == 1:
+        amount = validate_index_input("Enter the expense amount: ")
+        match selectedCategory:
+            case 0:
+                categories["food"]["food"].append(amount)
+            case 1:
+                categories["transport"]["transport"].append(amount)
+            case 2:
+                categories["books"]["books"].append(amount)
+            case 3:
+                categories["bills"]["bills"].append(amount)
+            case 4:
+                categories["entertaiment"]["entertaiment"].append(amount)
+            case _:
+                print("This category doesn't exists!!!")
+        
+        endRequest = validate_index_input("Enter [0] to terminate and [1] to proceed: ")
+    continueProcess = validate_index_input("Would you like to continue the process? [0] for no, [1] for yes")
+    if continueProcess:
+        get_daily_expense()
+        
 
 
 
 get_daily_expense()
+
+print(categories["food"])
+print(categories["transport"])
